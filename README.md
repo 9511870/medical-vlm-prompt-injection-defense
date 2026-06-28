@@ -1,4 +1,4 @@
-# medical-vlm-prompt-injection-defense# Medical Vision-Language Model Prompt Injection Defense
+# Securing Medical Vision-Language Models Against Prompt Injection Attack
 
 This repository contains the implementation, datasets, experimental results, and supplementary material for the paper:
 
