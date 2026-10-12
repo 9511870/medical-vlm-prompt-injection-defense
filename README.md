@@ -10,7 +10,7 @@ Defending Medical Vision-Language Models Against Prompt Injection Through Struct
 The repository contains both original medical images and adversarially modified images used for prompt injection evaluation.
 
 * **data/abnormal/** contains the original medical images.
-* **data/injected/** contains the corresponding adversarial images with embedded prompt injections.
+* **data/injected/** contains the corresponding sample images with embedded prompt injections.
 
 
 # Image Naming Convention
