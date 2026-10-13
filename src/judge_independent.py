@@ -1,22 +1,4 @@
-"""
-Independent LLM-as-judge scoring for GT vs Clean/Attack/Defense responses.   [FIXED VERSION]
 
-SEMANTIC PATCH (unchanged):
-The judge must analyze the COMPLETE Ground Truth and COMPLETE response and
-score how close their MEANING/CLINICAL CONTENT is. There is NO keyword or regex
-matching in the scoring logic.
-
-FIXES IN THIS VERSION
-1. parse_judge_output no longer turns a malformed-JSON reply into a score of 0.0.
-   Small models (e.g. Llama3-Med42-8B) often emit an invalid escape such as \\'
-   inside the "reason" text, which made json.loads fail and silently scored
-   valid answers (e.g. 0.85) as 0.0.  Now: (a) the common invalid escapes are
-   repaired, (b) ollama is asked for JSON-constrained output, (c) if JSON still
-   fails, ONLY the numeric "score" field is recovered from the reply text.
-2. A judging failure now returns score=None (never 0.0).  Callers must exclude
-   None rows from means, and they are listed in an "Issues" sheet.
-3. The ollama judge model must be named explicitly (no silent medgemma default).
-"""
 
 import argparse
 import json

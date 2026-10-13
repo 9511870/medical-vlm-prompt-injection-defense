@@ -1,45 +1,4 @@
-#!/usr/bin/env python3
-"""
-STANDALONE ABLATION GT SEMANTIC JUDGE — V5
 
-Compares each ablation AI response against its matching Ground Truth.
-
-INPUTS
-------
-1. Ablation responses:
-   Gpt-removed 1st step.xlsx
-
-2. GT source 1:
-   CLAUDE.xlsx
-   Mapping: Image_id -> GROUND TRUTH
-
-3. GT source 2:
-   claude-Supplementary_Data_1.xlsx
-   Mapping: NAME -> GROUND TRUTH
-
-IMPORTANT
----------
-This script is completely independent.
-It does NOT import judge_independent_v2.py or any other judge script.
-
-Judging:
-- Complete semantic comparison
-- No keyword matching
-- No word/phrase overlap scoring
-- No regex clinical scoring
-- Continuous 0.00-1.00 score
-- No predetermined score
-- No external hard cap
-- Temperature 0
-- Strict JSON judge output
-
-CHECKPOINTING
--------------
-A checkpoint is saved AFTER EVERY SUCCESSFULLY PROCESSED ROW.
-
-If the script crashes, simply run the same command again.
-Already-scored rows are skipped.
-"""
 
 import argparse
 import json

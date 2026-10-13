@@ -24,34 +24,6 @@ Experimental structure:
             └── Run 3
 
 
-STATISTICAL PROCEDURE
----------------------
-
-Step 1:
-    Average the repeated runs for each:
-
-        Image × Injection Type × Condition
-
-Step 2:
-    Overall analysis:
-        Average textual + visual + delayed
-        for each image and condition.
-
-Step 3:
-    Run paired Wilcoxon signed-rank test:
-
-        GT vs Defense
-              VS
-        GT vs Attack
-
-Step 4:
-    Also perform separate tests for:
-
-        Textual
-        Visual
-        Delayed
-
-The statistical unit is the IMAGE.
 """
 
 

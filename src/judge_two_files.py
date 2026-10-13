@@ -1,25 +1,4 @@
-"""
-Independent LLM-as-judge scoring - TWO-FILE version.   [FIXED VERSION]
 
-Uses the semantic judge from judge_independent.py (prompt unchanged).
-
-FIXES IN THIS VERSION
-1. Judging failures / malformed judge JSON are never stored as 0.0.  The numeric
-   score is recovered when possible (see judge_independent.parse_judge_output);
-   otherwise the row is left OUT of the checkpoint (so a re-run retries it) and
-   listed in the "Issues" sheet.
-2. Image ids and labels are normalised before use: whitespace stripped, trailing
-   "." removed from ids (e.g. "HEINRICH." -> "HEINRICH"), condition stripped
-   ("normal " -> "normal"), run_id converted to int.
-3. Ground-truth matching is exact first, then a UNIQUE id-suffix match.  An
-   ambiguous suffix match is reported instead of silently taking the first hit.
-4. Duplicate (image, condition, injection, run) keys and missing run ids in the
-   responses file are reported in the "Issues" sheet (a duplicate is NOT scored
-   twice and NOT silently dropped without a record).
-5. Summary reports N scored versus expected (images x max run) per cell group,
-   so the exact coverage can be quoted in Methods.
-6. The ollama judge model must be given explicitly with --judge_model.
-"""
 
 import argparse
 import os
@@ -116,9 +95,7 @@ def main():
     done_keys = set()
     if os.path.exists(checkpoint_path):
         prev = pd.read_csv(checkpoint_path)
-        # Old checkpoints (made before this fix) may contain failed rows stored as 0.0
-        # with an UNPARSEABLE/ERROR reason.  Those are NOT treated as done: they are
-        # dropped here so they get judged again.
+
         failed = prev["reason"].astype(str).str.startswith(("UNPARSEABLE", "ERROR after", "FAILED after"))
         good = prev[prev["score"].notna() & ~failed].copy()
         # normalise labels written by older versions (trailing '.', trailing spaces)
